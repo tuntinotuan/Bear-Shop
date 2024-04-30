@@ -29,15 +29,7 @@ async function fetchDataFromFirestore() {
   return data;
 }
 
-interface ProductsProps {
-  name: string;
-  main_image: string;
-  image: string[];
-  price: number;
-}
-
 const AppBody = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [products, setProducts] = useState<any[]>([]);
   useEffect(() => {
     async function fetData() {
@@ -46,7 +38,6 @@ const AppBody = () => {
     }
     fetData();
   }, []);
-  console.log("products: ", products);
   const list = [
     {
       title: "Thỏ",
@@ -91,59 +82,13 @@ const AppBody = () => {
   ];
   return (
     <div className="gap-5 grid grid-cols-2 sm:grid-cols-4 p-5">
-      <Modal size="4xl" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                Modal Title
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
-              </ModalBody>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
       {products?.map((item, index) => (
         <CardCus
           key={index}
           name={item.name}
           img={item.main_image}
           price={item.price}
-          onPress={onOpen}
+          list_image={item.image}
         ></CardCus>
       ))}
     </div>
