@@ -7,10 +7,10 @@ const HeaderLogo = () => {
     <Link href={"/"}>
       <Image
         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
-        src="/next.svg"
-        alt="Next.js Logo"
-        width={90}
-        height={37}
+        src="/bear.svg"
+        alt="Bear Logo"
+        width={42}
+        height={42}
         priority
       />
     </Link>
