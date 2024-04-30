@@ -1,7 +1,52 @@
+"use client";
 import CardCus from "@/components/card/CardCus";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+import { db } from "../firebase/firebase-config";
+import {
+  collection,
+  getDocs,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+
+async function fetchDataFromFirestore() {
+  const querySnapshort = await getDocs(collection(db, "products"));
+  const data: any = [];
+  querySnapshort.forEach((doc) => {
+    data.push({ id: doc.id, ...doc.data() });
+  });
+  return data;
+}
+
+interface ProductsProps {
+  name: string;
+  main_image: string;
+  image: string[];
+  price: number;
+}
 
 const AppBody = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+    async function fetData() {
+      const data = await fetchDataFromFirestore();
+      setProducts(data);
+    }
+    fetData();
+  }, []);
+  console.log("products: ", products);
   const list = [
     {
       title: "Thỏ",
@@ -10,48 +55,95 @@ const AppBody = () => {
     },
     {
       title: "Tangerine",
-      img: "/images/fruit-2.jpeg",
+      img: "",
       price: "$3.00",
     },
     {
       title: "Raspberry",
-      img: "/images/fruit-3.jpeg",
+      img: "",
       price: "$10.00",
     },
     {
       title: "Lemon",
-      img: "/images/fruit-4.jpeg",
+      img: "",
       price: "$5.30",
     },
     {
       title: "Avocado",
-      img: "/images/fruit-5.jpeg",
+      img: "",
       price: "$15.70",
     },
     {
       title: "Lemon 2",
-      img: "/images/fruit-6.jpeg",
+      img: "",
       price: "$8.00",
     },
     {
       title: "Banana",
-      img: "/images/fruit-7.jpeg",
+      img: "",
       price: "$7.50",
     },
     {
       title: "Watermelon",
-      img: "/images/fruit-8.jpeg",
+      img: "",
       price: "$12.20",
     },
   ];
   return (
     <div className="gap-5 grid grid-cols-2 sm:grid-cols-4 p-5">
-      {list.map((item, index) => (
+      <Modal size="4xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat
+                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
+                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
+                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
+                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
+                  eiusmod et. Culpa deserunt nostrud ad veniam.
+                </p>
+              </ModalBody>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      {products?.map((item, index) => (
         <CardCus
           key={index}
-          title={item.title}
-          img={item.img}
+          name={item.name}
+          img={item.main_image}
           price={item.price}
+          onPress={onOpen}
         ></CardCus>
       ))}
     </div>
