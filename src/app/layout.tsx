@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/_reset-css.css";
+import "../styles/_swiper.css";
 import "./globals.css";
 
 import "swiper/css";

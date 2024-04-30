@@ -10,25 +10,33 @@ import {
 } from "@nextui-org/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
+import CardPrice from "./CardPrice";
+import Hotline from "../contact/Hotline";
 interface CardProps {
   index?: number;
   name?: string;
   img?: string;
-  price?: string;
+  price?: number;
   list_image?: string[];
 }
 
 const CardCus = (props: CardProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  let newImages = [];
+  if (props.img && props.list_image) {
+    newImages.unshift(props.img, ...props.list_image);
+    console.log("newImages", newImages);
+  }
   return (
     <>
       <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                {props.name}
+              <ModalHeader className="flex items-center justify-between gap-1 px-20">
+                <p className="capitalize">{props.name}</p>
+                <CardPrice price={props.price}></CardPrice>
+                <Hotline />
               </ModalHeader>
               <ModalBody>
                 <Swiper
@@ -41,7 +49,7 @@ const CardCus = (props: CardProps) => {
                   navigation={true}
                   modules={[Pagination, Navigation]}
                 >
-                  {props?.list_image?.map((item, index) => (
+                  {newImages?.map((item, index) => (
                     <SwiperSlide key={index}>
                       <Image
                         radius="lg"
@@ -71,8 +79,8 @@ const CardCus = (props: CardProps) => {
           />
         </CardBody>
         <CardFooter className="text-small justify-between">
-          <b>{props.name}</b>
-          <p className="text-default-500">{props.price}</p>
+          <b className="capitalize">{props.name}</b>
+          <CardPrice price={props.price}></CardPrice>
         </CardFooter>
       </Card>
     </>
