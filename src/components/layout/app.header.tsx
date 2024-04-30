@@ -18,6 +18,7 @@ const AppHeader = () => {
           size="sm"
           isBordered
           color="primary"
+          className="animate-bounce"
           src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRpGkWA9kGSfI4MtFzCVeatQKmvbK03LFfkTJNte6MS-kdeC5e2"
         />
         <Hotline />
