@@ -33,7 +33,7 @@ const CardCus = (props: CardProps) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex items-center justify-between gap-1 px-20">
+              <ModalHeader className="flex items-center justify-between gap-1 px-20 max-sm:flex-col">
                 <p className="capitalize">{props.name}</p>
                 <CardPrice price={props.price}></CardPrice>
                 <Hotline />
@@ -55,7 +55,7 @@ const CardCus = (props: CardProps) => {
                         radius="lg"
                         alt={`${index}`}
                         width="100%"
-                        className="!object-contain h-[500px]"
+                        className="!object-contain h-[500px] max-sm:h-[250px]"
                         src={item}
                       ></Image>
                     </SwiperSlide>

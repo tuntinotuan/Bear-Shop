@@ -81,7 +81,7 @@ const AppBody = () => {
     },
   ];
   return (
-    <div className="gap-5 grid grid-cols-2 sm:grid-cols-4 p-5">
+    <div className="gap-5 grid grid-cols-2 sm:grid-cols-4 p-5 max-[520px]:grid-cols-1">
       {products?.map((item, index) => (
         <CardCus
           key={index}
