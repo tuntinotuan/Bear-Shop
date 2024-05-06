@@ -89,6 +89,7 @@ const AppBody = () => {
           img={item.main_image}
           price={item.price}
           list_image={item.image}
+          des={item.description}
         ></CardCus>
       ))}
     </div>

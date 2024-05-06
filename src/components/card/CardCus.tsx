@@ -1,6 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Image,
+  Tabs,
+  Tab,
+} from "@nextui-org/react";
 import {
   Modal,
   ModalContent,
@@ -12,10 +19,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import CardPrice from "./CardPrice";
 import Hotline from "../contact/Hotline";
+import PermMediaOutlinedIcon from "@mui/icons-material/PermMediaOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+
 interface CardProps {
   index?: number;
   name?: string;
   img?: string;
+  des?: string;
   price?: number;
   list_image?: string[];
 }
@@ -38,30 +49,57 @@ const CardCus = (props: CardProps) => {
                 <CardPrice price={props.price}></CardPrice>
                 <Hotline />
               </ModalHeader>
-              <ModalBody>
-                <Swiper
-                  cssMode={true}
-                  grabCursor={true}
-                  spaceBetween={15}
-                  pagination={{
-                    type: "fraction",
-                  }}
-                  navigation={true}
-                  modules={[Pagination, Navigation]}
+              <Tabs aria-label="Options" className="mx-auto" color="secondary">
+                <Tab
+                  key="pictures"
+                  title={
+                    <div className="flex items-center gap-2 mx-4">
+                      <PermMediaOutlinedIcon fontSize="small"></PermMediaOutlinedIcon>
+                      <span>Hình ảnh</span>
+                    </div>
+                  }
                 >
-                  {newImages?.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <Image
-                        radius="lg"
-                        alt={`${index}`}
-                        width="100%"
-                        className="!object-contain h-[500px] max-sm:h-[250px]"
-                        src={item}
-                      ></Image>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </ModalBody>
+                  <ModalBody>
+                    <Swiper
+                      cssMode={true}
+                      grabCursor={true}
+                      spaceBetween={15}
+                      pagination={{
+                        type: "fraction",
+                      }}
+                      navigation={true}
+                      modules={[Pagination, Navigation]}
+                    >
+                      {newImages?.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <Image
+                            radius="lg"
+                            alt={`${index}`}
+                            width="100%"
+                            className="!object-contain h-[450px] max-sm:h-[250px]"
+                            src={item}
+                          ></Image>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </ModalBody>
+                </Tab>
+                <Tab
+                  key="description"
+                  title={
+                    <div className="flex items-center gap-2 mx-4">
+                      <AssignmentOutlinedIcon></AssignmentOutlinedIcon>
+                      <span>Mô tả</span>
+                    </div>
+                  }
+                >
+                  <Card>
+                    <CardBody>
+                      {props.des || "Not thing!! Release soon <3"}
+                    </CardBody>
+                  </Card>
+                </Tab>
+              </Tabs>
             </>
           )}
         </ModalContent>
